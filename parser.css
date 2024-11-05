@@ -1,0 +1,45 @@
+  body {
+    font-family: Arial;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 15;
+    list-style: none;
+  }
+  
+  .flex-item-unhealthy {
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+  }
+  
+  .flex-item-healthy {
+    background: green;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+  }
+  
+  .flex-container-2 {
+    display: flex;
+    flex-flow: column;
+    margin-top: 40px;
+  }
+  
+  .flex-item-name {
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-bottom: 15px;
+  }
+  
+  .flex-item-health {
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
