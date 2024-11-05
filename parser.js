@@ -7,11 +7,12 @@ try {
   jsonString = jsonChrome[0].innerHTML;
 } catch { console.log('not chrome') }
 
-// edge
+// edge (doesnt work properly with big outputs because edge wants to be cool and lazy loads jsons)
 if (!jsonString) {
   try {
     const allDivs = document.getElementsByTagName("div");
-    const jsonEdge = Array.from(allDivs).find(x => x.dataset.language == 'json').textContent;
+    const elWithJson = Array.from(allDivs).find(x => x.dataset.language == 'json')
+    const jsonEdge = elWithJson.innerText;
     jsonString = jsonEdge;
   } catch { console.log('not edge') }
 }
