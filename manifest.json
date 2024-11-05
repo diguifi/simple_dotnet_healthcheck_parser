@@ -11,12 +11,12 @@
   "permissions": ["activeTab"],
   "content_scripts": [{
       "js": ["parser.js"],
-      "matches": ["<all_urls>"]
+      "matches": ["https://*/*"]
   }],
   "web_accessible_resources": [
     {
         "resources": ["parser.css"],
-        "matches": ["<all_urls>"]
+        "matches": ["https://*/*"]
     }
   ]
 }

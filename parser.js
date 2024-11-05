@@ -1,26 +1,39 @@
 let jsonString;
 let jsonParsed;
+let alreadyBuilt = false
 
 // chrome
 try {
   const jsonChrome = document.getElementsByTagName("pre");
   jsonString = jsonChrome[0].innerHTML;
+  build()
 } catch { console.log('not chrome') }
 
 // edge (doesnt work properly with big outputs because edge wants to be cool and lazy loads jsons)
 if (!jsonString) {
   try {
-    const allDivs = document.getElementsByTagName("div");
-    const elWithJson = Array.from(allDivs).find(x => x.dataset.language == 'json')
-    const jsonEdge = elWithJson.innerText;
-    jsonString = jsonEdge;
+    const currentZoom = parseFloat(document.body.style.zoom) || 1
+    document.body.style.zoom = currentZoom * 0.1
+
+    setTimeout(() => {
+      const allDivs = document.getElementsByTagName("div");
+      const elWithJson = Array.from(allDivs).find(x => x.dataset.language == 'json')
+      const jsonEdge = elWithJson.innerText;
+      jsonString = jsonEdge;
+      document.body.style.zoom = currentZoom
+      build()
+    }, 1000);
   } catch { console.log('not edge') }
 }
 
-try {
-  jsonParsed = JSON.parse(jsonString);
-  fillHealthChecks();
-} catch (e) { console.log('couldnt load json') }
+function build() {
+  try {
+    jsonParsed = JSON.parse(jsonString);
+    if (!alreadyBuilt) {
+      fillHealthChecks();
+    }
+  } catch (e) { console.log('couldnt load json') }
+}
 
 function fillHealthChecks() {
   try
@@ -58,6 +71,7 @@ function fillHealthChecks() {
       item.appendChild(parent2)
       parent.appendChild(item)
     }
+    alreadyBuilt = true
   }
-  catch(err) { console.log(err) }
+  catch(err) { console.log(err); alreadyBuilt = false; }
 }
