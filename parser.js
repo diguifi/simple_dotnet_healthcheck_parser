@@ -10,7 +10,7 @@ try {
   build()
 } catch { console.log('not chrome') }
 
-// edge (doesnt work properly with big outputs because edge wants to be cool and lazy loads jsons)
+// edge (zooming out because edge lazy loads the page)
 if (!jsonString) {
   try {
     currentZoom = parseFloat(document.body.style.zoom) || 1
