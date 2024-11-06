@@ -1,6 +1,7 @@
 let jsonString;
 let jsonParsed;
 let alreadyBuilt = false
+let currentZoom
 
 // chrome
 try {
@@ -12,7 +13,7 @@ try {
 // edge (doesnt work properly with big outputs because edge wants to be cool and lazy loads jsons)
 if (!jsonString) {
   try {
-    const currentZoom = parseFloat(document.body.style.zoom) || 1
+    currentZoom = parseFloat(document.body.style.zoom) || 1
     document.body.style.zoom = currentZoom * 0.1
 
     setTimeout(() => {
@@ -23,7 +24,7 @@ if (!jsonString) {
       document.body.style.zoom = currentZoom
       build()
     }, 1000);
-  } catch { console.log('not edge') }
+  } catch { console.log('not edge'); document.body.style.zoom = currentZoom }
 }
 
 function build() {
