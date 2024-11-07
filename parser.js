@@ -13,17 +13,24 @@ try {
 // edge (zooming out because edge lazy loads the page)
 if (!jsonString) {
   try {
-    currentZoom = parseFloat(document.body.style.zoom) || 1
-    document.body.style.zoom = currentZoom * 0.1
+    const allDivs = document.getElementsByTagName("div");
+    const hasJsonDiv = Array.from(allDivs).some(x => x.dataset.language == 'json')
 
-    setTimeout(() => {
-      const allDivs = document.getElementsByTagName("div");
-      const elWithJson = Array.from(allDivs).find(x => x.dataset.language == 'json')
-      const jsonEdge = elWithJson.innerText;
-      jsonString = jsonEdge;
-      document.body.style.zoom = currentZoom
-      build()
-    }, 1000);
+    if (hasJsonDiv) {
+      currentZoom = parseFloat(document.body.style.zoom) || 1
+      document.body.style.zoom = currentZoom * 0.1
+
+      setTimeout(() => {
+        try {
+          const elWithJson = Array.from(allDivs).find(x => x.dataset.language == 'json')
+          const jsonEdge = elWithJson.innerText;
+          jsonString = jsonEdge;
+          document.body.style.zoom = currentZoom
+          build()
+        } catch { console.log('not a json'); document.body.style.zoom = currentZoom }
+        
+      }, 1000);
+    } else { console.log('not a json') }
   } catch { console.log('not edge'); document.body.style.zoom = currentZoom }
 }
 
